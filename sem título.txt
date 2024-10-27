@@ -1,19 +1,19 @@
--- Verifica se o jogo é "UPD: One Punch Fighters X"
+-- Verifica se o jogo Ã© "UPD: One Punch Fighters X"
 local placeId = game.PlaceId
 local allowedPlaceId = 18463280776 -- ID do lugar
 
 if placeId ~= allowedPlaceId then
-    return -- Não faz nada se o jogo não for o permitido
+    return -- NÃ£o faz nada se o jogo nÃ£o for o permitido
 end
 
--- Seu código aqui
+-- Seu cÃ³digo aqui
 
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "One Punch Fighters X 🎃  ▎By Zetra Hub First Version",
+    Title = "One Punch Fighters X ðŸŽƒ  â–ŽBy Zetra Hub First Version",
     SubTitle = "",
     TabWidth = 135,
     Size = UDim2.fromOffset(440, 352),
@@ -23,13 +23,13 @@ local Window = Fluent:CreateWindow({
 })
 
 local Tabs = {
-    InfoScript = Window:AddTab({ Title = " ▎Info Script ", Icon = "scroll" }),
-    Combat = Window:AddTab({ Title = "▎Combat", Icon = "swords" }), 
-    FarmSettings= Window:AddTab({ Title = "▎Farm Settings", Icon = "star" }),
-    Misc = Window:AddTab({ Title = "▎Misc", Icon = "list" }),
-    Teleports = Window:AddTab({ Title = "▎Teleports", Icon = "map" }),
-    Player = Window:AddTab({ Title = "▎Player", Icon = "user" }),
-    Settings = Window:AddTab({ Title = "▎UI Settings", Icon = "settings" }),
+    InfoScript = Window:AddTab({ Title = " â–ŽInfo Script ", Icon = "scroll" }),
+    Combat = Window:AddTab({ Title = "â–ŽCombat", Icon = "swords" }), 
+    FarmSettings= Window:AddTab({ Title = "â–ŽFarm Settings", Icon = "star" }),
+    Misc = Window:AddTab({ Title = "â–ŽMisc", Icon = "list" }),
+    Teleports = Window:AddTab({ Title = "â–ŽTeleports", Icon = "map" }),
+    Player = Window:AddTab({ Title = "â–ŽPlayer", Icon = "user" }),
+    Settings = Window:AddTab({ Title = "â–ŽUI Settings", Icon = "settings" }),
 }
 
 local Options = Fluent.Options
@@ -46,7 +46,7 @@ Fluent:Notify({
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
--- Função para obter informações do Leaderboard
+-- FunÃ§Ã£o para obter informaÃ§Ãµes do Leaderboard
 local function getLeaderboardInfo()
     local leaderboardInfo = ""
 
@@ -58,22 +58,22 @@ local function getLeaderboardInfo()
     return leaderboardInfo
 end
 
--- Adiciona o parágrafo com as informações do Leaderboard na aba Player
+-- Adiciona o parÃ¡grafo com as informaÃ§Ãµes do Leaderboard na aba Player
 local leaderboardParagraph = Tabs.Player:AddParagraph({
     Title = "Status",
-    Content = getLeaderboardInfo() -- Apenas exibe as informações do leaderboard
+    Content = getLeaderboardInfo() -- Apenas exibe as informaÃ§Ãµes do leaderboard
 })
 
--- Função para atualizar o parágrafo a cada poucos segundos
+-- FunÃ§Ã£o para atualizar o parÃ¡grafo a cada poucos segundos
 local function updateLeaderboard()
     while true do
         wait(2) -- Atualiza a cada 2 segundos
         local newInfo = getLeaderboardInfo()
-        Tabs.Player:SetParagraphContent(leaderboardParagraph.Title, newInfo) -- Atualiza o conteúdo na aba
+        Tabs.Player:SetParagraphContent(leaderboardParagraph.Title, newInfo) -- Atualiza o conteÃºdo na aba
     end
 end
 
--- Conecta os eventos de adição e remoção para garantir que o parágrafo sempre mostre as informações mais recentes
+-- Conecta os eventos de adiÃ§Ã£o e remoÃ§Ã£o para garantir que o parÃ¡grafo sempre mostre as informaÃ§Ãµes mais recentes
 player:WaitForChild("leaderstats").ChildAdded:Connect(function()
     local newInfo = getLeaderboardInfo()
     Tabs.Player:SetParagraphContent(leaderboardParagraph.Title, newInfo)
@@ -84,25 +84,25 @@ player:WaitForChild("leaderstats").ChildRemoved:Connect(function()
     Tabs.Player:SetParagraphContent(leaderboardParagraph.Title, newInfo)
 end)
 
--- Inicia a função de atualização em uma nova thread
+-- Inicia a funÃ§Ã£o de atualizaÃ§Ã£o em uma nova thread
 coroutine.wrap(updateLeaderboard)()
 
--- Adiciona um parágrafo na aba Player para mostrar o nome do jogador
+-- Adiciona um parÃ¡grafo na aba Player para mostrar o nome do jogador
 Tabs.Player:AddParagraph({
     Title = "Info Player",
     Content = "Player: " .. player.Name -- Adiciona o nome do jogador
 })
 
--- Função para atualizar o parágrafo se necessário
+-- FunÃ§Ã£o para atualizar o parÃ¡grafo se necessÃ¡rio
 local function updatePlayerName()
     while true do
-        wait(1) -- Atualiza a cada segundo (opcional, se necessário)
-        Tabs.Player:UpdateParagraph("Player: " .. player.Name) -- Atualiza o conteúdo com o nome do jogador
+        wait(1) -- Atualiza a cada segundo (opcional, se necessÃ¡rio)
+        Tabs.Player:UpdateParagraph("Player: " .. player.Name) -- Atualiza o conteÃºdo com o nome do jogador
     end
 end
 
--- Inicia a atualização do nome em uma nova thread (opcional)
-spawn(updatePlayerName) -- Não é estritamente necessário, já que o nome não muda
+-- Inicia a atualizaÃ§Ã£o do nome em uma nova thread (opcional)
+spawn(updatePlayerName) -- NÃ£o Ã© estritamente necessÃ¡rio, jÃ¡ que o nome nÃ£o muda
 
 local RunService = game:GetService("RunService")
 
@@ -173,7 +173,7 @@ Tabs.Misc:AddButton({
             if success and response and response.data then
                 servers = response.data
             else
-                warn("Não foi possível obter servidores.")
+                warn("NÃ£o foi possÃ­vel obter servidores.")
                 return
             end
 
@@ -186,16 +186,16 @@ Tabs.Misc:AddButton({
                 end
             end
 
-            -- Caso não encontre um servidor, tentar buscar mais servidores com cursor
+            -- Caso nÃ£o encontre um servidor, tentar buscar mais servidores com cursor
             if response.nextPageCursor then
                 cursor = response.nextPageCursor
-                serverHop() -- Tenta novamente com o próximo cursor
+                serverHop() -- Tenta novamente com o prÃ³ximo cursor
             else
-                warn("Nenhum servidor disponível para hop.")
+                warn("Nenhum servidor disponÃ­vel para hop.")
             end
         end
 
-        -- Chamar a função de server hop
+        -- Chamar a funÃ§Ã£o de server hop
         serverHop()
     end
 })
@@ -307,10 +307,10 @@ Toggle:OnChanged(function()
         -- Iniciar o auto claim das recompensas
         spawn(function()
             while autoClaimRewards do
-                -- Aqui, você deve adaptar o caminho para a função ou objeto que concede a recompensa
+                -- Aqui, vocÃª deve adaptar o caminho para a funÃ§Ã£o ou objeto que concede a recompensa
                 local rewardButton = game:GetService("ReplicatedStorage"):FindFirstChild("TimeRewardRemoteFunction")
                 if rewardButton then
-                    -- Tenta coletar a recompensa chamando a função remota
+                    -- Tenta coletar a recompensa chamando a funÃ§Ã£o remota
                     local success, result = pcall(function()
                         return rewardButton:InvokeServer()
                     end)
@@ -320,7 +320,7 @@ Toggle:OnChanged(function()
                         print("Falha ao coletar a recompensa:", result)
                     end
                 else
-                    print("Recompensa não encontrada")
+                    print("Recompensa nÃ£o encontrada")
                 end
                 wait(60) -- Aguarda 60 segundos antes de tentar novamente
             end
@@ -418,23 +418,23 @@ local WalkSpeedSection = Tabs.Player:AddSection("Walk Speed")
 
 local Players = game:GetService("Players")
 
--- Obtém o jogador local
+-- ObtÃ©m o jogador local
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
--- Define o valor padrão do WalkSpeed como 23
+-- Define o valor padrÃ£o do WalkSpeed como 23
 local defaultWalkSpeed = 23
 
--- Criação do Slider para ajustar o WalkSpeed na aba Player
+-- CriaÃ§Ã£o do Slider para ajustar o WalkSpeed na aba Player
 local Slider = Tabs.Player:AddSlider("WalkSpeedSlider", {
     Title = "Walk Speed",
     Default = humanoid.WalkSpeed, -- Define como o valor atual do WalkSpeed
     Min = 0,
-    Max = 100, -- Você pode definir um valor máximo que achar adequado
+    Max = 100, -- VocÃª pode definir um valor mÃ¡ximo que achar adequado
     Rounding = 1,
     Callback = function(Value)
-        if Toggle.Value then -- Verifica se o toggle está ativado
+        if Toggle.Value then -- Verifica se o toggle estÃ¡ ativado
             humanoid.WalkSpeed = Value -- Atualiza o WalkSpeed apenas se o toggle estiver ativo
             print("WalkSpeed set to:", Value) -- Imprime no console a nova velocidade
         end
@@ -443,7 +443,7 @@ local Slider = Tabs.Player:AddSlider("WalkSpeedSlider", {
 
 Slider:SetValue(humanoid.WalkSpeed) -- Define um valor inicial para o slider
 
--- Criação do Toggle para ativar/desativar o WalkSpeed na aba Player
+-- CriaÃ§Ã£o do Toggle para ativar/desativar o WalkSpeed na aba Player
 local Toggle = Tabs.Player:AddToggle("MyToggle", {
     Title = "Apply WalkSpeed",
     Default = false
@@ -454,7 +454,7 @@ Toggle:OnChanged(function(Value)
         humanoid.WalkSpeed = Slider.Value -- Quando ativado, define o WalkSpeed como o valor do slider
         print("Toggle activated: WalkSpeed is now", humanoid.WalkSpeed)
     else
-        humanoid.WalkSpeed = defaultWalkSpeed -- Quando desativado, volta o WalkSpeed ao valor padrão de 23
+        humanoid.WalkSpeed = defaultWalkSpeed -- Quando desativado, volta o WalkSpeed ao valor padrÃ£o de 23
         print("Toggle deactivated: WalkSpeed reset to", humanoid.WalkSpeed)
     end
 end)
@@ -466,7 +466,7 @@ local Input = Tabs.Player:AddInput("Input", {
     Title = "Input",
     Default = "Default",
     Placeholder = "Placeholder",
-    Numeric = false, -- Altera para true se voc� quiser que apenas n�meros sejam aceitos
+    Numeric = false, -- Altera para true se você quiser que apenas números sejam aceitos
     Finished = false, -- Somente chama o callback ao pressionar Enter
     Callback = function(Value)
         print("Input changed:", Value)
@@ -483,21 +483,21 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
--- Obtém o jogador local
+-- ObtÃ©m o jogador local
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
--- Criação do Toggle para ativar/desativar Infinite Jump e Noclip na aba Player
+-- CriaÃ§Ã£o do Toggle para ativar/desativar Infinite Jump e Noclip na aba Player
 local JumpNoclipToggle = Tabs.Player:AddToggle("JumpNoclipToggle", {
     Title = "Infinite Jump & Noclip",
     Default = false
 })
 
--- Variável para controlar o estado do Infinite Jump
+-- VariÃ¡vel para controlar o estado do Infinite Jump
 local canJump = false
 
--- Função para lidar com o salto
+-- FunÃ§Ã£o para lidar com o salto
 local function onJumpRequest()
     if JumpNoclipToggle.Value and canJump then
         humanoid:ChangeState(Enum.HumanoidStateType.Jumping) -- Faz o personagem pular
@@ -507,7 +507,7 @@ end
 -- Conectar o evento de pulo ao Humanoid
 UserInputService.JumpRequest:Connect(onJumpRequest)
 
--- Função para atualizar o Noclip
+-- FunÃ§Ã£o para atualizar o Noclip
 local function updateNoclip()
     if JumpNoclipToggle.Value then
         for _, part in ipairs(character:GetChildren()) do
@@ -519,7 +519,7 @@ local function updateNoclip()
     else
         for _, part in ipairs(character:GetChildren()) do
             if part:IsA("BasePart") then
-                part.CanCollide = true -- Restaura a colisão
+                part.CanCollide = true -- Restaura a colisÃ£o
             end
         end
         print("Noclip deactivated.")
@@ -541,7 +541,7 @@ end)
 -- Atualiza o Noclip em tempo real enquanto o Toggle estiver ativado
 RunService.Stepped:Connect(function()
     if JumpNoclipToggle.Value then
-        updateNoclip() -- Atualiza a colisão durante o jogo
+        updateNoclip() -- Atualiza a colisÃ£o durante o jogo
     end
 end)
 
@@ -550,7 +550,7 @@ JumpNoclipToggle:SetValue(false)
 
 local ExtraSection = Tabs.Player:AddSection("Extra") 
 
--- Criação do botão que carrega o script externo
+-- CriaÃ§Ã£o do botÃ£o que carrega o script externo
 Tabs.Player:AddButton({
     Title = "Infinite Yield",
     Callback = function()
@@ -568,7 +568,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 
--- Função para teletransportar para coordenadas específicas
+-- FunÃ§Ã£o para teletransportar para coordenadas especÃ­ficas
 local function teleportToCoordinates(targetPosition)
     if Character and Character:FindFirstChild("HumanoidRootPart") then
         Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
@@ -587,7 +587,7 @@ local locations = {
     ["Child Emperor"] = Vector3.new(-1067, 207, 331),
 }
 
--- Criação do dropdown para teletransporte na aba Teleports
+-- CriaÃ§Ã£o do dropdown para teletransporte na aba Teleports
 local Dropdown = Tabs.Teleports:AddDropdown("TeleportsDropdown", {
     Title = "Select NPC",
     Values = {"Craft Key", "Defense", "Defense Halloween", "Tatsu", "Child Emperor"},
@@ -595,15 +595,15 @@ local Dropdown = Tabs.Teleports:AddDropdown("TeleportsDropdown", {
     Default = 1,
 })
 
--- Variável para armazenar a localização selecionada
+-- VariÃ¡vel para armazenar a localizaÃ§Ã£o selecionada
 local selectedLocation = "Craft Key"
 
--- Ação quando o valor do dropdown for alterado
+-- AÃ§Ã£o quando o valor do dropdown for alterado
 Dropdown:OnChanged(function(Value)
     selectedLocation = Value
 end)
 
--- Criação do botão de teleporte na aba Teleports
+-- CriaÃ§Ã£o do botÃ£o de teleporte na aba Teleports
 Tabs.Teleports:AddButton({
     Title = "Teleport",
     Callback = function()
@@ -627,12 +627,12 @@ Tabs.Teleports:AddButton({
         -- Coordenadas para 'Defense'
         local defensePosition = Vector3.new(-12358, 327, -7416)
 
-        -- Função para teletransportar
+        -- FunÃ§Ã£o para teletransportar
         local function teleportTo(position)
             if character and character:FindFirstChild("HumanoidRootPart") then
                 character.HumanoidRootPart.CFrame = CFrame.new(position)
             else
-                warn("Não foi possível encontrar o jogador ou a parte central para o teleporte.")
+                warn("NÃ£o foi possÃ­vel encontrar o jogador ou a parte central para o teleporte.")
             end
         end
 
@@ -650,12 +650,12 @@ Tabs.Teleports:AddButton({
         -- Coordenadas para 'World Halloween'
         local halloweenPosition = Vector3.new(4995, 75, -1149)
 
-        -- Função para teletransportar
+        -- FunÃ§Ã£o para teletransportar
         local function teleportTo(position)
             if character and character:FindFirstChild("HumanoidRootPart") then
                 character.HumanoidRootPart.CFrame = CFrame.new(position)
             else
-                warn("Não foi possível encontrar o jogador ou a parte central para o teleporte.")
+                warn("NÃ£o foi possÃ­vel encontrar o jogador ou a parte central para o teleporte.")
             end
         end
 
